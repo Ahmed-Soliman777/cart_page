@@ -1,0 +1,8 @@
+#demoItem{
+    overflow: scroll;
+}
+.car-bg-image{
+    height: 150px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}

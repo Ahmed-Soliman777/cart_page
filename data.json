@@ -1,0 +1,34 @@
+{
+  "cars": [
+    {
+      "id": 1,
+      "name": "Toyota GR Supra",
+      "manufacturer": "Toyota",
+      "year": 2025,
+      "type": "Sports Coupe",
+      "power": "3.0L Turbo Inline‑6 – 382 hp",
+      "price_usd": 57345,
+      "image": "images/img2.jpg"
+    },
+    {
+      "id": 2,
+      "name": "Mazda CX‑5",
+      "manufacturer": "Mazda",
+      "year": 2025,
+      "type": "Compact SUV",
+      "power": "Updated design, Kodo styling",
+      "price_usd": null,
+      "image": "images/img2.jpg"
+    },
+    {
+      "id": 3,
+      "name": "BYD Tang L",
+      "manufacturer": "BYD",
+      "year": 2025,
+      "type": "7‑seat SUV (EV and PHEV)",
+      "power": "Up to 1086 hp electric AWD",
+      "price_usd": 31700,
+      "image": "images/img2.jpg"
+    }
+  ]
+}

@@ -1,0 +1,381 @@
+{
+  "cars": [
+    {
+      "id": 1,
+      "make": "BMW",
+      "model": "M5",
+      "year": 2023,
+      "type": "Sedan",
+      "colors": [
+        "Black",
+        "White",
+        "Blue"
+      ],
+      "price": 520000,
+      "images": {
+        "Black": [
+          "media/m5black1.jpg",
+          "media/m5black2.jpg",
+          "media/m5black3.jpg"
+        ],
+        "White": [
+          "media/m5white1.jpg",
+          "media/m5white2.jpg",
+          "media/m5white3.jpg"
+        ],
+        "Blue": [
+          "media/m5blue1.jpg",
+          "media/m5blue2.jpg",
+          "media/m5blue3.jpg"
+        ]
+      },
+      "description": "The 2023 BMW M5 is a high-performance luxury sedan that combines sleek design with powerful engineering. Featuring a twin-turbo V8 engine, advanced all-wheel-drive system, and premium interior materials, the M5 delivers a thrilling driving experience. Ideal for enthusiasts who demand both speed and sophistication."
+    },
+    {
+      "id": 2,
+      "make": "BMW",
+      "model": "X5",
+      "year": 2023,
+      "type": "SUV",
+      "colors": [
+        "Black",
+        "White",
+        "Blue"
+      ],
+      "price": 750000,
+      "images": {
+        "Black": [
+          "media/x5black (1).jpg",
+          "media/x5black (2).jpg",
+          "media/x5black (3).jpg"
+        ],
+        "White": [
+          "media/x5white (1).jpg",
+          "media/x5white (2).jpg",
+          "media/x5white (3).jpg"
+        ],
+        "Blue": [
+          "media/x5blue (1).jpg",
+          "media/x5blue (2).jpg",
+          "media/x5blue (3).jpg"
+        ]
+      },
+      "description": "The 2023 BMW X5 is a luxury midsize SUV offering powerful performance, advanced technology, and a spacious, high-end interior. Ideal for families and luxury enthusiasts alike."
+    },
+    {
+      "id": 3,
+      "make": "BMW",
+      "model": "X3",
+      "year": 2023,
+      "type": "SUV",
+      "colors": [
+        "Black",
+        "White",
+        "Blue"
+      ],
+      "price": 650000,
+      "images": {
+        "Black": [
+          "media/x3black (1).jpg",
+          "media/x3black (2).jpg",
+          "media/x3black (3).jpg"
+        ],
+        "White": [
+          "media/x3white (1).jpg",
+          "media/x3white (2).jpg",
+          "media/x3white (3).jpg"
+        ],
+        "Blue": [
+          "media/x3blue (1).jpg",
+          "media/x3blue (2).jpg",
+          "media/x3blue (3).jpg"
+        ]
+      },
+      "description": "The 2023 BMW X3 is a luxury compact SUV offering dynamic performance, premium interior, and cutting-edge technology. Ideal for those seeking comfort and sporty driving experience."
+    },
+    {
+      "id": 4,
+      "make": "Mercedes-Benz",
+      "model": "GLC",
+      "year": 2023,
+      "type": "SUV",
+      "colors": [
+        "Black",
+        "White",
+        "Blue"
+      ],
+      "price": 720000,
+      "images": {
+        "Black": [
+          "media/marsuvblack (2).jpg",
+          "media/marsuvblack (1).jpg",
+          "media/marsuvblack (3).jpg"
+        ],
+        "White": [
+          "media/marsuvwhite (1).jpg",
+          "media/marsuvwhite (2).jpg",
+          "media/marsuvwhite (3).jpg"
+        ],
+        "Blue": [
+          "media/marsuvblue (1).jpg",
+          "media/marsuvblue (2).jpg",
+          "media/marsuvblue (3).jpg"
+        ]
+      },
+      "description": "The 2023 Mercedes-Benz SUV offers a bold design, spacious interior, and powerful performance, making it an ideal choice for families and adventure seekers. Equipped with advanced safety and comfort features, it delivers a premium driving experience on every road."
+    },
+    {
+      "id": 5,
+      "make": "Mercedes-Benz",
+      "model": "C-Class",
+      "year": 2022,
+      "type": "Sedan",
+      "colors": [
+        "Black",
+        "White",
+        "Blue"
+      ],
+      "price": 980000,
+      "images": {
+        "Black": [
+          "media/mar2.jpg",
+          "media/mar1 (2).jpg",
+          "media/mar1 (3).jpg"
+        ],
+        "White": [
+          "media/marsewhite (1).jpg",
+          "media/marsewhite (2).jpg",
+          "media/marsewhite (3).jpg"
+        ],
+        "Blue": [
+          "media/marseblue (1).jpg",
+          "media/marseblue (2).jpg",
+          "media/marsuvblack (3).jpg"
+        ]
+      },
+      "description": "The 2022 Mercedes-Benz C-Class combines luxury, performance, and innovation. It features a sleek design, turbocharged engine, and a high-tech interior with MBUX infotainment system. Perfect for those seeking elegance and comfort in a compact executive sedan."
+    },
+    {
+      "id": 6,
+      "make": "Mercedes",
+      "model": "CLA",
+      "year": 2023,
+      "type": "Sedan",
+      "colors": [
+        "Black",
+        "White",
+        "Blue"
+      ],
+      "price": 1250000,
+      "images": {
+        "Black": [
+          "media/mar1 (1).jpg",
+          "media/mar1 (2).jpg",
+          "media/mar1 (3).jpg"
+        ],
+        "White": [
+          "media/mar3white (1).jpg",
+          "media/mar3white (2).jpg",
+          "media/mar3white (3).jpg"
+        ],
+        "Blue": [
+          "media/marseblue (1).jpg",
+          "media/marseblue (2).jpg",
+          "media/mar3blue.jpg"
+        ]
+      },
+      "description": "The 2023 Mercedes-Benz GLC is a premium midsize SUV combining elegance, performance, and advanced technology. With a refined interior and smooth driving dynamics, it's perfect for luxury seekers and everyday driving."
+    },
+    {
+      "id": 7,
+      "make": "Audi",
+      "model": "Q5",
+      "year": 2023,
+      "type": "SUV",
+      "colors": [
+        "Black",
+        "White",
+        "Blue"
+      ],
+      "price": 800000,
+      "images": {
+        "Black": [
+          "media/audibla1 (1).jpg",
+          "media/audibla1 (2).jpg",
+          "media/audibla1 (3).jpg"
+        ],
+        "White": [
+          "media/audiwhi1 (1).jpg",
+          "media/audiwhi1 (2).jpg",
+          "media/audiwhi1 (3).jpg"
+        ],
+        "Blue": [
+          "media/audibl1 (1).jpg",
+          "media/audibl1 (2).jpg",
+          "media/audibl1 (3).jpg"
+        ]
+      },
+      "description": "The 2023 Audi Q5 is a luxurious compact SUV offering refined performance, Quattro all-wheel drive, and a tech-rich cabin. It’s designed for both everyday comfort and confident long-distance driving."
+    },
+    {
+      "id": 8,
+      "make": "Audi",
+      "model": "A6",
+      "year": 2023,
+      "type": "Sedan",
+      "colors": [
+        "Black",
+        "White",
+        "Blue"
+      ],
+      "price": 950000,
+      "images": {
+        "Black": [
+          "media/audibla2 (1).jpg",
+          "media/audibla2 (2).jpg",
+          "media/audibla2 (3).jpg"
+        ],
+        "White": [
+          "media/audiwhi2 (1).jpg",
+          "media/audiwhi2 (2).jpg",
+          "media/audiwhi2 (3).jpg"
+        ],
+        "Blue": [
+          "media/audibl2 (1).jpg",
+          "media/audibl2 (2).jpg",
+          "media/audibl2 (3).jpg"
+        ]
+      },
+      "description": "The 2023 Audi A6 is a premium executive sedan featuring cutting-edge technology, a spacious interior, and powerful engine options. Ideal for professionals looking for performance with style."
+    },
+    {
+      "id": 9,
+      "make": "Audi",
+      "model": "Q8",
+      "year": 2023,
+      "type": "SUV",
+      "colors": [
+        "Black",
+        "White",
+        "Blue"
+      ],
+      "price": 1350000,
+      "images": {
+        "Black": [
+          "media/audibla3 (1).jpg",
+          "media/audibla3 (2).jpg",
+          "media/audibla3 (3).jpg"
+        ],
+        "White": [
+          "media/audiwhi3 (1).jpg",
+          "media/audiwhi3 (2).jpg",
+          "media/audiwhi3 (3).jpg"
+        ],
+        "Blue": [
+          "media/audibl3 (1).jpg",
+          "media/audibl3 (2).jpg",
+          "media/audibl3 (3).jpg"
+        ]
+      },
+      "description": "The 2023 Audi Q8 blends the practicality of an SUV with the elegance of a coupe. It features bold design, luxurious materials, and cutting-edge driver assistance technology."
+    },
+    {
+      "id": 10,
+      "make": "Ferrari",
+      "model": "Roma",
+      "year": 2023,
+      "type": "Coupe",
+      "colors": [
+        "Black",
+        "White",
+        "Blue"
+      ],
+      "price": 4500000,
+      "images": {
+        "Black": [
+          "media/frbla1.jpg",
+          "media/frbla ()2.jpg",
+          "media/frbla12.jpg"
+        ],
+        "White": [
+          "media/frwhi1 (1).jpg",
+          "media/frwhi1 (2).jpg",
+          "media/frwhi1 (3).jpg"
+        ],
+        "Blue": [
+          "media/frbl2 (1).jpg",
+          "media/frbl2 (2).jpg",
+          "media/frbl2 (3).jpg"
+        ]
+      },
+      "description": "The 2023 Ferrari Roma combines timeless design with breathtaking performance. Featuring a twin-turbo V8 and elegant curves, it offers a thrilling yet refined driving experience."
+    },
+
+
+    {
+      "id": 11,
+      "make": "Ferrari",
+      "model": "F8 Tributo",
+      "year": 2023,
+      "type": "Sports",
+      "colors": [
+        "Black",
+        "White",
+        "Blue"
+      ],
+      "price": 5200000,
+      "images": {
+        "Black": [
+          "media/frbla2 (1).jpg",
+          "media/frbla2 (2).jpg",
+          "media/frbla2 (3).jpg"
+        ],
+        "White": [
+          "media/frwhi2 (1).jpg",
+          "media/frwhi2 (2).jpg",
+          "media/frwhi2 (3).jpg"
+        ],
+        "Blue": [
+          "media/frbl1 (1).jpg",
+          "media/frbl1 (2).jpg",
+          "media/frbl1 (3).jpg"
+        ]
+      },
+      "description": "The Ferrari F8 Tributo is a high-performance sports car featuring a 710-hp V8 engine, aerodynamic excellence, and aggressive styling. It’s the ultimate expression of Ferrari’s racing DNA."
+    },
+
+
+
+    {
+      "id": 12,
+      "make": "Ferrari",
+      "model": "SF90 Stradale",
+      "year": 2023,
+      "type": "Hybrid Supercar",
+      "colors": [
+        "Black",
+        "White",
+        "Blue"
+      ],
+      "price": 6000000,
+      "images": {
+        "Black": [
+          "media/frbla3 (1).jpg",
+          "media/frbla3 (2).jpg",
+          "media/frbla3 (3).jpg"
+        ],
+        "White": [
+          "media/frwhi3 (1).jpg",
+          "media/frwhi3 (2).jpg",
+          "media/frwhi1 (3).jpg"
+        ],
+        "Blue": [
+          "media/frbl3 (1).jpg",
+          "media/frbl3 (2).jpg",
+          "media/frbl3 (3).jpg"
+        ]
+      },
+      "description": "The Ferrari SF90 Stradale is a groundbreaking plug-in hybrid supercar, blending 986 horsepower with cutting-edge electric performance. It's a futuristic leap in Ferrari engineering and design."
+    }
+  ]
+}

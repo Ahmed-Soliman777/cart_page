@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/all.min.css">
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <title>Proceed to Payment</title>
+</head>
+<body>
+    <div class="container">
+        <div class="d-flex align-items-center justify-content-center vh-100">
+            <div class="w-50">
+                <h1>Proceed to Payment</h1>
+                <h2 id="totalPriceDisplay">Total: 0 EGP</h2>
+                
+                <!-- Visa and Mastercard logos -->
+                <div class="mb-3">
+                    <img src="./images/Visa-Logo.png" alt="Visa" class="me-3" style="height: 30px;">
+                    <img src="./images/Mastercard-Logo.png" alt="Mastercard" style="height: 30px;">
+                </div>
+                
+                <label for="cardNumber">card number</label>
+                <input type="text" id="cardNumber" class="w-50 d-block mb-2">
+                <div id="cardNumberError" class="text-danger small"></div>
+
+                <label for="expirationDate">expiration date</label>
+                <input type="text" id="expirationDate" class="w-25 mb-2" placeholder="MM/YY">
+                <div id="expirationDateError" class="text-danger small"></div>
+
+                <label for="cvv">cvv</label>
+                <input type="text" id="cvv" class="w-25 mb-2">
+                <div id="cvvError" class="text-danger small"></div>
+
+                <label for="cardHolderName">card holder name</label>
+                <input type="text" id="cardHolderName" class="w-50 d-block mb-2">
+                <div id="cardHolderNameError" class="text-danger small"></div>
+
+                <button class="btn btn-success mt-3" id="completePaymentBtn">Complete Payment</button>
+            </div>
+        </div>
+    </div>
+    <script src="./bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="./main.js"></script>
+    <script>
+        // Display total price on page load
+        window.onload = function() {
+            const totalPrice = localStorage.getItem("totalPrice");
+            if (totalPrice) {
+                document.getElementById("totalPriceDisplay").innerText = "Total: " + totalPrice + " EGP";
+            }
+        }
+    </script>
+</body>
+</html>
