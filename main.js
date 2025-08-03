@@ -1,3 +1,304 @@
+const demoSection = document.getElementById("demo"),
+    cartSection = document.getElementById("container"),
+    cartItem = document.getElementById("demoItem")
+let arr = []
+let currentColor = "Black", currentImageIndex = 0
+
+// Updated to store cart items with quantities
+let localStorageItems = JSON.parse(localStorage.getItem("carsWithQuantities")) || []
+async function abc() {
+
+    const options = {
+        method: 'GET'
+        // headers: {
+        //     'x-rapidapi-key': 'c27e1a3cd4msh21bf1715578a128p194a9ejsnffda7608df8f',
+        //     'x-rapidapi-host': 'cars-database-with-image.p.rapidapi.com'
+        // }
+    };
+
+    const url = await fetch('./car.json', options);
+    const result = await url.json();
+    arr = result.cars
+    // console.log(arr.length);
+    handleDisplay();
+    // console.log(result.cars);
+
+}
+
+// Initialize localStorageItems with data from localStorage
+localStorageItems = JSON.parse(localStorage.getItem("carsWithQuantities")) || [];
+
+abc();
+displayCart();
+
+
+function handleDisplay() {
+    let html = ``
+    for (let i = 0; i < arr.length; i++) {
+        html += `<div class="col-12 col-lg-4">
+        <div class="mx-auto w-25 pos">
+        <div class="car-bg-image" style="background-image: url('${arr[i].images.Black[0]}');"></div>
+        </div>
+            <h1>${arr[i].model}</h1>
+            <button onclick="addToCart(`+ i + `)" class="btn btn-primary">Add to cart</button>
+        </div>`
+    }
+    if (demoSection) {
+        demoSection.innerHTML = html
+    }
+    // console.log(html);
+}
+function addToCart(index) {
+    // Check if item already exists in cart
+    let existingItemIndex = localStorageItems.findIndex(item => item.id === arr[index].id);
+
+    if (existingItemIndex !== -1) {
+        // If item exists, increment quantity
+        localStorageItems[existingItemIndex].quantity += 1;
+    } else {
+        // If item doesn't exist, add it with quantity 1
+        let itemWithQuantity = { ...arr[index] };
+        itemWithQuantity.quantity = 1;
+        localStorageItems.push(itemWithQuantity);
+    }
+
+    localStorage.setItem("carsWithQuantities", JSON.stringify(localStorageItems));
+    displayCart();
+}
+
+function displayCart() {
+    let html = ``
+    let cart = JSON.parse(localStorage.getItem("carsWithQuantities"))
+    if (cartSection) {
+        if (cart != null && cart.length > 0) {
+            let totalPrice = 0;
+            for (let i = 0; i < cart.length; i++) {
+                let itemTotal = cart[i].price * cart[i].quantity;
+                totalPrice += itemTotal;
+                // Use the global currentColor as default
+                let selectedColor = currentColor;
+                // Try to find the color from the item's own property first
+                if (cart[i].selectedColor) {
+                    selectedColor = cart[i].selectedColor;
+                }
+                // check if product is already added or no
+                html += `<div class="col-12 col-lg-4">
+                <div class="border-dark rounded p-3 bg-light-subtle">
+            <div class="d-flex">
+            <div class="w-50 h-50 mx-auto position-relative cart-image-container">
+                <div class="blurred-bg" style="background-image: url('${cart[i].images[selectedColor][0]}');"></div>
+                <img src="${cart[i].images[selectedColor][0]}" alt="car" class="w-50 h-100 position-relative"/>
+            </div>
+            <div>
+            <h1>${cart[i].model}</h1>
+            <p>Quantity: ${cart[i].quantity}</p>
+            <p>Total: ${itemTotal} EGP</p>
+            <p>Color: ${selectedColor}</p>
+            </div>
+            </div>
+            <button onclick="removeFromCart(${i})" class="btn btn-danger">
+                <i class="fa-solid fa-trash" style="color: #ffffff;"></i>
+            </button>
+            <button onclick="displayCartItem(${i})" class="btn btn-warning">
+                <i class="fa-solid fa-eye" style="color: #000000;"></i>
+            </button>
+            </div>
+            </div>`
+            }
+            html += `<div class="col-12">
+                <h2>Total Price: ${totalPrice} EGP</h2>
+                <button class="btn btn-success" onclick="calculateAndStoreTotal()">Proceed to Checkout</button>
+            </div>`;
+            cartSection.innerHTML = html
+        }
+        else {
+            cartSection.innerHTML = `<div class="empty-cart-img">
+            <img src="./images/shopping.png" alt="empty cart section">
+            </div>
+            <h3 class="empty-cart-img-title">cart is empty</h3>
+            `;
+        }
+    }
+}
+
+// Function to calculate total price and proceed to checkout
+function calculateAndStoreTotal() {
+    // Get items from localStorage
+    const items = JSON.parse(localStorage.getItem("carsWithQuantities")) || [];
+
+    // Calculate total price
+    const totalPrice = items.reduce((total, item) => {
+        return total + (item.price * item.quantity);
+    }, 0);
+
+    // Store total price in localStorage
+    localStorage.setItem("totalPrice", totalPrice);
+
+    // Redirect to proceed page
+    window.location.href = "./proceed.html";
+}
+
+// Function to get total price for a specific item in cart
+function getItemTotal(item) {
+    return item.price * (item.quantity || 1);
+}
+
+function removeFromCart(index) {
+    // Show SweetAlert confirmation dialog
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // User confirmed deletion
+            localStorageItems.splice(index, 1)
+            localStorage.setItem("carsWithQuantities", JSON.stringify(localStorageItems))
+            // Update the global localStorageItems array
+            localStorageItems = JSON.parse(localStorage.getItem("carsWithQuantities")) || [];
+            displayCart()
+
+            // Show success message
+            Swal.fire(
+                'Deleted!',
+                'Your item has been deleted.',
+                'success'
+            )
+        }
+    })
+}
+
+function displayCartItem(index) {
+
+    cartItem.classList.remove("close-cart-item")
+    cartItem.classList.add("open-cart-item")
+
+    // console.log("hello");
+
+    let html = ``, htmlColors = ``
+    let cart = JSON.parse(localStorage.getItem("carsWithQuantities"))
+
+    for (let key in cart[index].images) {
+        htmlColors += `<span onclick="changeImgBg('${key}', ${index})" style="cursor:pointer; background:${key}; width:20px; height:20px; display:inline-block;" class="mx-2 rounded    "></span>`
+    }
+
+    html = `
+         <div class="w-100 position-relative" >
+            <div class="position-absolute m-3 bg-light rounded py-1 px-2" onclick="closeCartItem()">
+                <i class="fa-solid fa-close"></i>
+            </div>
+            <img id="displayed-img-cart" src="${cart[index].images.Black[0]}" alt="car" class="w-100">
+            <div class="handle-cart-images-btns w-100">
+            <div class="d-flex justify-content-between">
+            <button class="bg-light rounded cart-item-display-btn" onclick="handlePrevImg(${index})">
+                <i class="fa-solid fa-angle-left"></i>
+            </button>
+            <button class="bg-light rounded cart-item-display-btn" onclick="handleNextImg(${index})">
+                <i class="fa-solid fa-angle-right"></i>
+            </button>
+        </div>
+        </div>
+        </div>
+        <div class="container-fluid mt-3">
+            <h2 class="text-center">${cart[index].model}</h2>
+            <h3 class="text-center">
+                ${htmlColors}
+            </h3 >
+            <div class="quantity my-1 text-center">
+                <button class="btn btn-success" onclick="increaseCounter(${index})">+</button>
+                <span id="counterId">${cart[index].quantity}</span>
+                <button class="btn btn-danger" onclick="decreaseCounter(${index})">-</button>
+            </div>
+            <h4 class="calc-price text-center">${cart[index].price * cart[index].quantity} EGP</h4>
+        </div >
+    <button class="btn btn-success w-75 position-absolute top-100 start-50 translate-middle" onclick="calculateAndStoreTotal()">Proceed to Checkout</button>
+`
+    cartItem.innerHTML = html
+}
+
+function increaseCounter(index) {
+    let counterIdItem = document.getElementById("counterId"),
+        calcPriceItem = document.querySelector(".calc-price")
+
+    // Increase quantity for the specific item
+    localStorageItems[index].quantity += 1;
+
+    // Update UI
+    counterIdItem.innerHTML = localStorageItems[index].quantity;
+    calcPriceItem.innerHTML = localStorageItems[index].price * localStorageItems[index].quantity;
+
+    // Update localStorage
+    localStorage.setItem("carsWithQuantities", JSON.stringify(localStorageItems));
+
+    // Update cart display
+    displayCart();
+}
+
+function decreaseCounter(index) {
+    let counterIdItem = document.getElementById("counterId"),
+        calcPriceItem = document.querySelector(".calc-price")
+
+    if (localStorageItems[index].quantity > 1) {
+        // Decrease quantity for the specific item
+        localStorageItems[index].quantity -= 1;
+
+        // Update UI
+        counterIdItem.innerHTML = localStorageItems[index].quantity;
+        calcPriceItem.innerHTML = localStorageItems[index].price * localStorageItems[index].quantity;
+
+        // Update localStorage
+        localStorage.setItem("carsWithQuantities", JSON.stringify(localStorageItems));
+
+        // Update cart display
+        displayCart();
+    }
+}
+
+function closeCartItem() {
+    document.getElementById("demoItem").classList.add("close-cart-item")
+    document.getElementById("demoItem").classList.remove("open-cart-item")
+}
+
+function changeImgBg(imageKey, index) {
+    const displayedImgCart = document.getElementById("displayed-img-cart")
+
+    let lol = localStorageItems[index].images[imageKey][0]
+
+    displayedImgCart.src = lol
+
+    if (cartItem) {
+        cartItem.setAttribute("data-current-color", imageKey);
+    }
+
+    // Update the selected color in localStorageItems
+    localStorageItems[index].selectedColor = imageKey;
+    localStorage.setItem("carsWithQuantities", JSON.stringify(localStorageItems));
+
+    currentImageIndex = 0;
+}
+
+function handleNextImg(index) {
+    const displayedImgCart = document.getElementById("displayed-img-cart");
+    let cart = JSON.parse(localStorage.getItem("carsWithQuantities")),
+        selectedColor = cartItem.getAttribute("data-current-color") || currentColor,
+        images = cart[index].images[selectedColor];
+    currentImageIndex = (currentImageIndex + 1) % images.length;
+    displayedImgCart.src = images[currentImageIndex];
+}
+
+function handlePrevImg(index) {
+    const displayedImgCart = document.getElementById("displayed-img-cart");
+    let cart = JSON.parse(localStorage.getItem("carsWithQuantities")),
+        selectedColor = cartItem.getAttribute("data-current-color") || currentColor,
+        images = cart[index].images[selectedColor];
+    currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+    displayedImgCart.src = images[currentImageIndex];
+}
+
 // Add event listener when DOM is loaded
 document.addEventListener('DOMContentLoaded', function () {
     // Check if we're on the proceed page
@@ -214,251 +515,4 @@ function validatePaymentForm(e) {
             confirmButtonText: 'OK'
         });
     }
-}
-
-const demoSection = document.getElementById("demo"),
-    cartSection = document.getElementById("container"),
-    cartItem = document.getElementById("demoItem")
-let arr = []
-let currentColor = "Black", currentImageIndex = 0
-
-// Updated to store cart items with quantities
-let localStorageItems = JSON.parse(localStorage.getItem("carsWithQuantities")) || []
-async function abc() {
-
-    const options = {
-        method: 'GET'
-        // headers: {
-        //     'x-rapidapi-key': 'c27e1a3cd4msh21bf1715578a128p194a9ejsnffda7608df8f',
-        //     'x-rapidapi-host': 'cars-database-with-image.p.rapidapi.com'
-        // }
-    };
-
-    const url = await fetch('./car.json', options);
-    const result = await url.json();
-    arr = result.cars
-    // console.log(arr.length);
-    handleDisplay();
-    // console.log(result.cars);
-
-}
-
-// Initialize localStorageItems with data from localStorage
-localStorageItems = JSON.parse(localStorage.getItem("carsWithQuantities")) || [];
-
-abc();
-displayCart();
-
-
-function handleDisplay() {
-    let html = ``
-    for (let i = 0; i < arr.length; i++) {
-        html += `<div class="col-12 col-lg-4">
-        <div class="mx-auto w-25 pos">
-        <div class="car-bg-image" style="background-image: url('${arr[i].images.Black[0]}');"></div>
-        </div>
-            <h1>${arr[i].model}</h1>
-            <button onclick="addToCart(`+ i + `)" class="btn btn-primary">Add to cart</button>
-        </div>`
-    }
-    if (demoSection) {
-        demoSection.innerHTML = html
-    }
-    // console.log(html);
-}
-function addToCart(index) {
-    // Check if item already exists in cart
-    let existingItemIndex = localStorageItems.findIndex(item => item.id === arr[index].id);
-
-    if (existingItemIndex !== -1) {
-        // If item exists, increment quantity
-        localStorageItems[existingItemIndex].quantity += 1;
-    } else {
-        // If item doesn't exist, add it with quantity 1
-        let itemWithQuantity = { ...arr[index] };
-        itemWithQuantity.quantity = 1;
-        localStorageItems.push(itemWithQuantity);
-    }
-
-    localStorage.setItem("carsWithQuantities", JSON.stringify(localStorageItems));
-    displayCart();
-}
-
-function displayCart() {
-    let html = ``
-    let cart = JSON.parse(localStorage.getItem("carsWithQuantities"))
-    if (cartSection) {
-        if (cart != null && cart.length > 0) {
-            let totalPrice = 0;
-            for (let i = 0; i < cart.length; i++) {
-                let itemTotal = cart[i].price * cart[i].quantity;
-                totalPrice += itemTotal;
-                // check if product is already added or no
-                html += `<div class="col-12 col-lg-4">
-            <div class="w-100">
-            <img src="${cart[i].images.Black[0]}" alt="car" class="w-100"/>
-            </div>
-            <h1>${cart[i].model}</h1>
-            <p>Quantity: ${cart[i].quantity}</p>
-            <p>Price: ${cart[i].price} EGP</p>
-            <p>Total: ${itemTotal} EGP</p>
-            <button onclick="removeFromCart(${i})" class="btn btn-danger">Remove from
-            cart</button>
-            <button onclick="displayCartItem(${i})" class="btn btn-warning">Show Item</button>
-            </div>`
-            }
-            html += `<div class="col-12">
-                <h2>Total Price: ${totalPrice} EGP</h2>
-                <button class="btn btn-success" onclick="calculateAndStoreTotal()">Proceed to Checkout</button>
-            </div>`;
-            cartSection.innerHTML = html
-        }
-        else {
-            cartSection.innerHTML = `<h1>Cart is empty</h1>`;
-        }
-    }
-}
-
-// Function to calculate total price and proceed to checkout
-function calculateAndStoreTotal() {
-    // Get items from localStorage
-    const items = JSON.parse(localStorage.getItem("carsWithQuantities")) || [];
-
-    // Calculate total price
-    const totalPrice = items.reduce((total, item) => {
-        return total + (item.price * item.quantity);
-    }, 0);
-
-    // Store total price in localStorage
-    localStorage.setItem("totalPrice", totalPrice);
-
-    // Redirect to proceed page
-    window.location.href = "./proceed.html";
-}
-
-// Function to get total price for a specific item in cart
-function getItemTotal(item) {
-    return item.price * (item.quantity || 1);
-}
-
-function removeFromCart(index) {
-    // console.log(index);
-    localStorageItems.splice(index, 1)
-    localStorage.setItem("carsWithQuantities", JSON.stringify(localStorageItems))
-    // Update the global localStorageItems array
-    localStorageItems = JSON.parse(localStorage.getItem("carsWithQuantities")) || [];
-    displayCart()
-}
-
-function displayCartItem(index) {
-
-    cartItem.classList.remove("d-none")
-
-    // console.log("hello");
-
-    let html = ``, htmlColors = ``
-    let cart = JSON.parse(localStorage.getItem("carsWithQuantities"))
-
-    for (let key in cart[index].images) {
-        htmlColors += `<span onclick="changeImgBg('${key}', ${index})" style="cursor:pointer; background:${key}; width:20px; height:20px; display:inline-block;"></span>`
-    }
-
-    html = `
-         <div class="w-100 position-relative" >
-            <div class="position-absolute m-3 bg-light rounded py-1 px-2" onclick="closeCartItem()">
-                <i class="fa-solid fa-close"></i>
-            </div>
-            <img id="displayed-img-cart" src="${cart[index].images.Black[0]}" alt="car" class="w-100">
-        </div>
-        <button onclick="handleNextImg(${index})">next</button>
-        <button onclick="handlePrevImg(${index})">prev</button>
-        <div class="container-fluid mt-3">
-            <h2>${cart[index].model}</h2>
-            <h3>
-                ${htmlColors}
-            </h3 >
-            <div class="quantity my-1">
-                <button class="btn btn-success" onclick="increaseCounter(${index})">+</button>
-                <span id="counterId">${cart[index].quantity}</span>
-                <button class="btn btn-danger" onclick="decreaseCounter(${index})">-</button>
-            </div>
-            <h4 class="calc-price">${cart[index].price * cart[index].quantity}</h4>
-        </div >
-    <button class="btn btn-success w-100 position-relative bottom-0" onclick="calculateAndStoreTotal()">Proceed to Checkout</button>
-`
-    cartItem.innerHTML = html
-}
-
-function increaseCounter(index) {
-    let counterIdItem = document.getElementById("counterId"),
-        calcPriceItem = document.querySelector(".calc-price")
-
-    // Increase quantity for the specific item
-    localStorageItems[index].quantity += 1;
-
-    // Update UI
-    counterIdItem.innerHTML = localStorageItems[index].quantity;
-    calcPriceItem.innerHTML = localStorageItems[index].price * localStorageItems[index].quantity;
-
-    // Update localStorage
-    localStorage.setItem("carsWithQuantities", JSON.stringify(localStorageItems));
-
-    // Update cart display
-    displayCart();
-}
-
-function decreaseCounter(index) {
-    let counterIdItem = document.getElementById("counterId"),
-        calcPriceItem = document.querySelector(".calc-price")
-
-    if (localStorageItems[index].quantity > 1) {
-        // Decrease quantity for the specific item
-        localStorageItems[index].quantity -= 1;
-
-        // Update UI
-        counterIdItem.innerHTML = localStorageItems[index].quantity;
-        calcPriceItem.innerHTML = localStorageItems[index].price * localStorageItems[index].quantity;
-
-        // Update localStorage
-        localStorage.setItem("carsWithQuantities", JSON.stringify(localStorageItems));
-
-        // Update cart display
-        displayCart();
-    }
-}
-
-function closeCartItem() {
-    document.getElementById("demoItem").classList.add("d-none")
-}
-
-function changeImgBg(imageKey, index) {
-    const displayedImgCart = document.getElementById("displayed-img-cart")
-
-    let lol = localStorageItems[index].images[imageKey][0]
-
-    displayedImgCart.src = lol
-
-    if (cartItem) {
-        cartItem.setAttribute("data-current-color", imageKey);
-    }
-
-    currentImageIndex = 0;
-}
-
-function handleNextImg(index) {
-    const displayedImgCart = document.getElementById("displayed-img-cart");
-    let cart = JSON.parse(localStorage.getItem("carsWithQuantities")),
-        selectedColor = cartItem.getAttribute("data-current-color") || currentColor,
-        images = cart[index].images[selectedColor];
-    currentImageIndex = (currentImageIndex + 1) % images.length;
-    displayedImgCart.src = images[currentImageIndex];
-}
-
-function handlePrevImg(index) {
-    const displayedImgCart = document.getElementById("displayed-img-cart");
-    let cart = JSON.parse(localStorage.getItem("carsWithQuantities")),
-        selectedColor = cartItem.getAttribute("data-current-color") || currentColor,
-        images = cart[index].images[selectedColor];
-    currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
-    displayedImgCart.src = images[currentImageIndex];
 }

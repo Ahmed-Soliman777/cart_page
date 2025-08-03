@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,33 +9,41 @@
     <link rel="stylesheet" href="./css/style.css">
     <title>Proceed to Payment</title>
 </head>
+
 <body>
-    <div class="container">
-        <div class="d-flex align-items-center justify-content-center vh-100">
+
+    <div class="text-white">
+        <div class="proceed-bg d-flex align-items-center justify-content-center vh-100 border border-dark">
             <div class="w-50">
                 <h1>Proceed to Payment</h1>
                 <h2 id="totalPriceDisplay">Total: 0 EGP</h2>
-                
+
                 <!-- Visa and Mastercard logos -->
                 <div class="mb-3">
                     <img src="./images/Visa-Logo.png" alt="Visa" class="me-3" style="height: 30px;">
                     <img src="./images/Mastercard-Logo.png" alt="Mastercard" style="height: 30px;">
                 </div>
-                
-                <label for="cardNumber">card number</label>
-                <input type="text" id="cardNumber" class="w-50 d-block mb-2">
+                <div class="mb-3">
+                    <label for="cardNumber" class="form-label">Card Number</label>
+                    <input type="text" id="cardNumber" class="form-control">
+                </div>
                 <div id="cardNumberError" class="text-danger small"></div>
 
-                <label for="expirationDate">expiration date</label>
-                <input type="text" id="expirationDate" class="w-25 mb-2" placeholder="MM/YY">
+                <div class="d-flex">
+                    <div class="mb-3">
+                        <label for="expirationDate" class="form-label">Expiration Date</label>
+                        <input type="text" id="expirationDate" class="form-control" placeholder="MM/YY">
+                    </div>
+                    <div class="mb-3 mx-4">
+                        <label for="cvv" class="form-label">CVV</label>
+                        <input type="text" id="cvv" class="form-control" placeholder="CVV">
+                    </div>
+                </div>
                 <div id="expirationDateError" class="text-danger small"></div>
-
-                <label for="cvv">cvv</label>
-                <input type="text" id="cvv" class="w-25 mb-2">
                 <div id="cvvError" class="text-danger small"></div>
 
-                <label for="cardHolderName">card holder name</label>
-                <input type="text" id="cardHolderName" class="w-50 d-block mb-2">
+                <label for="cardHolderName" class="form-label">Card Holder Name</label>
+                <input type="text" id="cardHolderName" class="d-block mb-2 form-control">
                 <div id="cardHolderNameError" class="text-danger small"></div>
 
                 <button class="btn btn-success mt-3" id="completePaymentBtn">Complete Payment</button>
@@ -45,8 +54,9 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="./main.js"></script>
     <script>
+
         // Display total price on page load
-        window.onload = function() {
+        window.onload = function () {
             const totalPrice = localStorage.getItem("totalPrice");
             if (totalPrice) {
                 document.getElementById("totalPriceDisplay").innerText = "Total: " + totalPrice + " EGP";
@@ -54,4 +64,5 @@
         }
     </script>
 </body>
+
 </html>

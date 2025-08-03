@@ -4,6 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="./css/all.min.css">
     <link rel="stylesheet" href="./css/bootstrap.min.css">
     <link rel="stylesheet" href="./css/style.css">
@@ -11,11 +16,23 @@
 </head>
 
 <body>
-    <div class="container">
-        <div id="container" class="row"></div>
+    <nav>
+        <div class="nav-logo">
+            <img src="./images/bmw_logo.png" alt="nav logo">
+        </div>
+
+    </nav>
+    <div class="cart-welcoming-section">
+        <h1 class="cart-welcoming-title">Cart Section</h1>
     </div>
-    <div id="demoItem" class="position-fixed vh-100 w-25 top-0 end-0 bg-dark-subtle d-none"></div>
+    <div id="cart-section">
+        <div class="container">
+            <div id="container" class="row g-3"></div>
+        </div>
+    </div>
+    <div id="demoItem" class="position-fixed vh-100 w-25 top-0 cart-item-style z-3 open-close-animation close-cart-item pb-2"></div>
     <script src="./bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="./main.js"></script>
 </body>
 
